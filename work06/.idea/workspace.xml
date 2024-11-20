@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64336fa3-5ce1-44d8-a11d-383b5421bffc" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../finall test/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../finall test/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../finall test/result.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../finall test/result.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../finall test/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/../finall test/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +37,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/GitHub_local/Machine_learning_homework/work06&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/GitHub_local/Brain_Neuroimage_Processing/Brain_neural_data_analysis&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -91,6 +87,8 @@
       <workItem from="1731425219135" duration="4719000" />
       <workItem from="1731482914160" duration="4606000" />
       <workItem from="1731502653627" duration="1406000" />
+      <workItem from="1731550273326" duration="854000" />
+      <workItem from="1731814982283" duration="71000" />
     </task>
     <servers />
   </component>
