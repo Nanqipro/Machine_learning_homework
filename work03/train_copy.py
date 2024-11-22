@@ -50,7 +50,7 @@ def main():
     result_df.to_csv('result.csv', index=False)
 
     # 输出结果
-    print("结果已保存到 result.csv")
+    # print("结果已保存到 result.csv")
 
 if __name__ == '__main__':
     # 设置编码为 UTF-8
