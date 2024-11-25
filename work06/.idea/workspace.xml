@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64336fa3-5ce1-44d8-a11d-383b5421bffc" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/../work02/result/result.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../work02/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/../work02/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../work03/result/result.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../work03/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/../work03/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../work03/train_copy.py" beforeDir="false" afterPath="$PROJECT_DIR$/../work03/train_copy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../work05/result.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../work05/result.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../work05/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/../work05/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result.csv" beforeDir="false" afterPath="$PROJECT_DIR$/result.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-    </list>
+    <list default="true" id="64336fa3-5ce1-44d8-a11d-383b5421bffc" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,7 +35,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/GitHub_local/Machine_learning_homework/work06",
+    "last_opened_file_path": "D:/GitHub_local/TC_Log_result_processing/draw_graph",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -100,6 +89,7 @@
       <workItem from="1731814982283" duration="71000" />
       <workItem from="1732283805998" duration="1313000" />
       <workItem from="1732285979994" duration="234000" />
+      <workItem from="1732345856151" duration="15000" />
     </task>
     <servers />
   </component>
