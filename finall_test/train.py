@@ -40,13 +40,70 @@
 #
 # print("预测结果已保存到 'result.csv'")
 
-# XGBOOST
+# # XGBOOST
+# import pandas as pd
+# import xgboost as xgb
+# from sklearn.preprocessing import StandardScaler
+# from imblearn.over_sampling import SMOTE
+# import numpy as np
+#
+# # 1. 加载数据
+# train_df = pd.read_csv('train/train.csv')
+# test_df = pd.read_csv('test/test.csv')
+#
+# # 2. 特征和标签分离
+# X_train = train_df.drop(columns=['Class'])
+# y_train = train_df['Class']
+# X_test = test_df  # 测试集没有Class列，直接用特征进行预测
+#
+# # 3. 处理不平衡数据：使用SMOTE进行过采样
+# smote = SMOTE(random_state=42)
+# X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
+#
+# # 4. 标准化处理
+# scaler = StandardScaler()
+# X_train_res = scaler.fit_transform(X_train_res)
+# X_test = scaler.transform(X_test)
+#
+# # 5. XGBoost模型训练
+# # 创建DMatrix，这是XGBoost的输入格式
+# dtrain = xgb.DMatrix(X_train_res, label=y_train_res)
+# dtest = xgb.DMatrix(X_test)
+#
+# # 设置XGBoost参数
+# params = {
+#     'objective': 'binary:logistic',   # 二分类任务
+#     'eval_metric': 'logloss',          # 评估指标为对数损失
+#     'scale_pos_weight': len(y_train_res) / np.sum(y_train_res),  # 处理类别不平衡
+#     'max_depth': 6,                    # 树的最大深度
+#     'learning_rate': 0.1               # 学习率
+# }
+#
+# # 训练模型
+# num_round = 100  # 迭代次数，等同于树的数量
+# model = xgb.train(params, dtrain, num_round)
+#
+# # 6. 在测试集上进行预测
+# y_test_pred = model.predict(dtest)
+# y_test_pred = (y_test_pred > 0.5).astype(int)  # 转换为0或1
+#
+# # 7. 保存预测结果
+# result_df = pd.DataFrame(y_test_pred, columns=['Class'])
+# result_df.to_csv('result.csv', index=False)
+#
+# print("预测结果已保存至 result.csv")
+
+
+# XGBOOST 增加评估部分
 import pandas as pd
 import xgboost as xgb
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
 import numpy as np
-
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_curve, auc
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, precision_recall_curve, fbeta_score
+import seaborn as sns
 # 1. 加载数据
 train_df = pd.read_csv('train/train.csv')
 test_df = pd.read_csv('test/test.csv')
@@ -54,7 +111,9 @@ test_df = pd.read_csv('test/test.csv')
 # 2. 特征和标签分离
 X_train = train_df.drop(columns=['Class'])
 y_train = train_df['Class']
-X_test = test_df  # 测试集没有Class列，直接用特征进行预测
+# X_test = test_df  # 测试集没有Class列，直接用特征进行预测
+X_test = test_df.drop(columns=['Class'])  # 测试集的特征（假设测试集有Class列）
+y_test = test_df['Class']  # 测试集的真实标签
 
 # 3. 处理不平衡数据：使用SMOTE进行过采样
 smote = SMOTE(random_state=42)
@@ -84,14 +143,84 @@ num_round = 100  # 迭代次数，等同于树的数量
 model = xgb.train(params, dtrain, num_round)
 
 # 6. 在测试集上进行预测
-y_test_pred = model.predict(dtest)
-y_test_pred = (y_test_pred > 0.5).astype(int)  # 转换为0或1
+y_test_pred_prob = model.predict(dtest)  # 预测为正类的概率
+y_test_pred = (y_test_pred_prob > 0.5).astype(int)  # 转换为0或1
 
-# 7. 保存预测结果
+# 7. 评估模型性能
+accuracy = accuracy_score(y_test, y_test_pred)
+precision = precision_score(y_test, y_test_pred)
+recall = recall_score(y_test, y_test_pred)
+f1 = f1_score(y_test, y_test_pred)
+
+# 计算ROC曲线和AUC
+fpr, tpr, thresholds = roc_curve(y_test, y_test_pred_prob)
+roc_auc = auc(fpr, tpr)
+
+# 混淆矩阵
+conf_matrix = confusion_matrix(y_test, y_test_pred)
+print(f'Confusion Matrix:\n{conf_matrix}')
+
+# 精确度-召回曲线
+precision_vals, recall_vals, _ = precision_recall_curve(y_test, y_test_pred_prob)
+pr_auc = auc(recall_vals, precision_vals)
+print(f'Precision-Recall AUC: {pr_auc:.4f}')
+
+# F-beta score (可以调整beta值来平衡Precision和Recall)
+f2_score = fbeta_score(y_test, y_test_pred, beta=2)
+print(f'F2 Score: {f2_score:.4f}')
+
+
+# 输出评估指标
+print(f'Accuracy: {accuracy:.4f}')
+print(f'Precision: {precision:.4f}')
+print(f'Recall: {recall:.4f}')
+print(f'F1 Score: {f1:.4f}')
+print(f'AUC: {roc_auc:.4f}')
+
+# 8. 绘制ROC曲线
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (area = {roc_auc:.4f})')
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC)')
+plt.legend(loc='lower right')
+plt.show()
+
+# 1. 绘制混淆矩阵图
+plt.figure(figsize=(6, 5))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=['Non-Fraud', 'Fraud'], yticklabels=['Non-Fraud', 'Fraud'])
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show()
+
+# 2. 绘制精确度-召回曲线图
+plt.figure(figsize=(8, 6))
+plt.plot(recall_vals, precision_vals, color='blue', lw=2, label=f'PR curve (area = {pr_auc:.4f})')
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision-Recall Curve')
+plt.legend(loc='lower left')
+plt.show()
+
+# 3. 绘制特征重要性图
+plt.figure(figsize=(10, 8))
+xgb.plot_importance(model, importance_type='weight', max_num_features=10, height=0.5)
+plt.title('Feature Importance')
+plt.show()
+
+
+# 9. 保存预测结果
 result_df = pd.DataFrame(y_test_pred, columns=['Class'])
 result_df.to_csv('result.csv', index=False)
 
 print("预测结果已保存至 result.csv")
+
+
+
 
 # # 优化的XGBOOST01
 # import pandas as pd
